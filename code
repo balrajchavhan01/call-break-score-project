@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_PLAYERS 4
+#define MAX_ROUNDS 10
+
+int calculate_score(int call,int trick);
+
+
+int main (){
+    char name[MAX_PLAYERS][50];
+    int call[MAX_PLAYERS][MAX_ROUNDS];
+    int tricks[MAX_PLAYERS][MAX_ROUNDS];
+    int scores[MAX_PLAYERS][MAX_ROUNDS];
+    int total[MAX_PLAYERS]={0};
+
+
+    int rounds;
+    b:
+    printf("Enter the number of rounds(max %d):",MAX_ROUNDS);
+    scanf("%d",&rounds);
+
+    if(rounds>MAX_ROUNDS || rounds <=0){
+        printf("invalid round count . Exiting.\n");
+        goto b;
+    }
+
+    printf("Enter name of 4 players:\n");
+    for(int i=0;i<MAX_PLAYERS;i++){
+        printf("player %d name :",i+1);
+        scanf("%s",name[i]);
+    }
+//game rounds
+    for(int r=0;r<rounds;r++){
+        printf("\n--- Round %d ---\n",r+1);
+//take calls
+        for(int i=0;i<MAX_PLAYERS;i++){
+            h:
+            printf("Enter call (bid) for %s:",name[i]);
+            scanf("%d",&call[i][r]);
+            if(call[i][r]<2){
+                goto h;
+            }
+        }
+//take tricks made
+printf("Now the made calls Return\n");
+        for(int i=0;i<MAX_PLAYERS;i++){
+            printf("enter tricks made by %s:",name[i]);
+            scanf("%d",&tricks[i][r]);
+//calculation scaore
+            scores[i][r]=calculate_score(call[i][r],tricks[i][r]);
+//add to total
+            total[i] +=scores[i][r];
+            printf("\n");
+
+        }
+    }
+
+    //final Scoreboard
+
+    printf("\n=== final scores====\n");
+
+    for(int i=0;i<MAX_PLAYERS;i++){
+        printf("%s:%d  points\n",name[i],total[i]);
+    }
+
+    //determine winner
+    int max=total[0],winnerIndex=0;
+    for(int i=1;i<MAX_PLAYERS;i++){
+        if(total[i]>max){
+            max=total[i];
+            winnerIndex=i;
+        }
+    }
+    printf("\n %c winner is : %s with %d points!\n",35,name[winnerIndex],total[winnerIndex]);
+return 0;
+}
+
+int calculate_score(int call,int trick){
+    if(trick == call)
+    return call * 10;
+    else if ( trick < call)
+    return -call * 10;
+    else if (trick < 2 * call)
+    return call * 10 + (trick - call);
+    else
+    return -call * 10;
+}
