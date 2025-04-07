@@ -1,0 +1,33 @@
+Call Break Score Manager (C Project)
+This is a C program designed to manage score calculation for the Call Break card game.
+
+How it works:
+The program supports 4 players.
+
+The user inputs the number of rounds and the names of all four players.
+
+For each round:
+
+Each player enters their call (bid).
+
+Each player enters the number of tricks they actually made.
+
+The program calculates and stores the score based on the defined rules.
+
+Scoring rules:
+If tricks made is equal to the call, the score is call × 10.
+
+If tricks made is less than the call, the score is -call × 10.
+
+If tricks made is greater than the call but less than double the call, the score is call × 10 + extra tricks.
+
+If tricks made is greater than or equal to double the call, the score is -call × 10.
+
+At the end of all rounds, the program displays each player's total score and announces the winner based on the highest score.
+
+Technical details:
+Written in C
+
+No structures used; only arrays and basic functions
+
+Input and output are handled through the terminal
