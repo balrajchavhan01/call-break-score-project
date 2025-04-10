@@ -27,7 +27,7 @@ int main (){
 
     printf("Enter name of 4 players:\n");
     for(int i=0;i<MAX_PLAYERS;i++){
-        printf("player %d name :",i+1);
+        printf("player %d name :",i);
         scanf("%s",name[i]);
     }
 //game rounds
